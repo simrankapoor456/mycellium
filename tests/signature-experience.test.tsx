@@ -25,8 +25,8 @@ describe("signature Product Graph", () => {
     const user = userEvent.setup();
     render(<ScrollProductNarrative />);
 
-    const idea = screen.getByRole("button", { name: /Fragmented input/ });
-    const foundation = screen.getByRole("button", { name: /Foundation stabilized/ });
+    const idea = screen.getByRole("button", { name: /Seed of intent/ });
+    const foundation = screen.getByRole("button", { name: /New seed/ });
 
     expect(idea).toHaveAttribute("aria-pressed", "true");
     await user.click(foundation);

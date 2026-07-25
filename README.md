@@ -84,7 +84,7 @@ The proposal layer cannot write application data. The Decision Layer owns authen
 - **Mycel Core:** AI proposals, product decisions, and deterministic execution have separate authority.
 - **Reliable mode:** missing or invalid provider output falls back safely without changing the product contract.
 - **Product Blueprint:** architecture, requirements, work structure, and exports remain editable and versioned.
-- **Living interface:** a nine-stage Seed-to-Foundation story, intelligent Foundation Map, architecture reveal, calm workspace shell, reduced motion, and responsive composition form one coherent system.
+- **Living interface:** a reversible ten-stage Seed-to-New-Seed story, intelligent Foundation Map, architecture reveal, calm workspace shell, complete reduced-motion composition, and responsive native flow form one coherent system.
 
 ## Technology
 
@@ -199,7 +199,7 @@ legacy-static/               Preserved pre-Next.js prototype
 
 ## Project status
 
-Implemented: the complete personal-user journey from authentication through controlled discovery, grouped foundation review, approval, blueprint generation, editing, and export; Mycel Core boundaries; Reliable mode; the living identity and application shell; resilient form validation and draft recovery; the Phase 9A Seed-to-Foundation public story; and the Mycelium Experience across the Living Foundation Map, architecture, Blueprint, and dashboard surfaces.
+Implemented: the complete personal-user journey from authentication through controlled discovery, grouped foundation review, approval, blueprint generation, editing, and export; Mycel Core boundaries; Reliable mode; the living identity and application shell; resilient form validation and draft recovery; the Phase 9A.2 Seed-to-New-Seed public story; and the Mycelium Experience across the Living Foundation Map, architecture, Blueprint, and dashboard surfaces.
 
 Active development: advanced reasoning visualization, Blueprint Studio, and Living Workspace remain later milestones.
 

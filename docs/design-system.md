@@ -130,9 +130,9 @@ Phase 8 resolves the shared product meanings to 110 ms immediate feedback, 180 m
 
 The animated mark forms once through Spark, Connect, Grow, Form, and Settle. It is complete from the start in the document, does not delay content, and becomes immediately static under `prefers-reduced-motion: reduce`.
 
-The Living Product Experience uses GSAP only in isolated Client Components. `useGSAP`, a local scope, `gsap.matchMedia()`, ScrollTrigger cleanup, and explicit revert cleanup are required. The Phase 9A public signature story owns one continuous Seed-to-Foundation timeline; the Living Foundation Map retains its scoped authenticated reveal. SplitText remains limited to the final public call to action and its semantic text exists before enhancement. Other authenticated work keeps CSS feedback and native scrolling.
+The Living Product Experience uses GSAP only in isolated Client Components. `useGSAP`, a local scope, `gsap.matchMedia()`, ScrollTrigger cleanup, and explicit revert cleanup are required. The Phase 9A.2 public signature story owns one continuous Seed-to-New-Seed timeline; the Living Foundation Map retains its scoped authenticated reveal. SplitText remains limited to the final public call to action and its semantic text exists before enhancement. Other authenticated work keeps CSS feedback and native scrolling.
 
-The signature organism follows a strict hierarchy: primary root, evidence branches, mycelium connections, then Foundation nodes. Paths draw from existing parents and reverse through the same geometry. Confirmed, emerging, unknown, and blocked areas use labels and distinct marks as well as color.
+The signature organism follows a strict hierarchy: seed, primary root, evidence branches, mycelium connections and Foundation nodes, trunk, canopy branches, leaves, blossoms, fruit, mature value, and renewal seed. Paths draw from existing parents and reverse through the same geometry. Confirmed, emerging, unknown, and blocked areas use labels and distinct marks as well as color.
 
 Lenis is lazy-loaded by `MarketingMotionProvider` on the public landing route only. Touch remains native, form and nested-scroll surfaces are excluded, anchors retain their destinations, and reduced motion prevents the instance from starting. It never wraps authentication, product workspaces, dialogs, profile, or settings.
 
@@ -163,7 +163,7 @@ Review widths are 375, 768, 1024, and 1440 pixels.
 - At 1440 pixels, full floating navigation and asymmetric editorial composition are available.
 - No route may create page-level horizontal overflow or hide a critical action.
 - Product navigation wraps or changes mode instead of shrinking labels below legibility.
-- The signature story uses native vertical flow below 768 pixels, with no pinned range or snap carousel. The full progress timeline begins at 768 pixels, while explicit ScrollTrigger pinning begins at 1024 pixels.
+- The signature story uses native vertical flow below 768 pixels, with no ScrollTrigger or snap carousel. One ScrollTrigger scrubs the full timeline from 768 pixels upward, while the visual uses CSS sticky positioning instead of a second pin trigger.
 - The Living Foundation Map becomes a vertical evidence lineage below 640 pixels.
 
 ## Performance boundaries
@@ -178,7 +178,7 @@ Review widths are 375, 768, 1024, and 1440 pixels.
 - The signature story is dynamically composed from the public route and remains server-rendered for semantic completeness.
 - Lenis stays in its unchanged separate public-only chunk and is absent from protected route manifests.
 
-The Phase 9A story adds no production photograph or image sequence. Its reference photographs are not repository assets. One deterministic inline SVG and existing GSAP runtime produce the transformation.
+The Phase 9A.2 story adds no production photograph or image sequence. Its five reference images are not repository assets. One deterministic inline SVG and the existing GSAP runtime produce the complete Seed-to-New-Seed transformation.
 
 See [`docs/premium-interaction-foundation.md`](./premium-interaction-foundation.md) for client-only integration, cleanup, reduced-motion, and public-only scrolling rules.
 

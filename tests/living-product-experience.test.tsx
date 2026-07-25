@@ -9,16 +9,16 @@ import { signatureStoryStages } from "@/lib/marketing/signature-experience";
 import { calculateReadiness, createInitialDiscoveryContext } from "@/lib/discovery/engine";
 
 describe("Living Product Experience", () => {
-  it("tells the complete seed-to-Foundation story with static accessible copy", () => {
+  it("tells the complete seed-to-renewal story with static accessible copy", () => {
     render(<ScrollProductNarrative />);
 
-    expect(signatureStoryStages).toHaveLength(9);
+    expect(signatureStoryStages).toHaveLength(10);
     expect(signatureStoryStages.map((stage) => stage.label)).toEqual([
-      "Fragmented input", "Signal attraction", "Seed of intent", "Germination", "First root", "Evidence branching",
-      "Mycelium connections", "Foundation areas", "Foundation stabilized",
+      "Seed of intent", "First root", "Branching roots", "Trunk", "Branches",
+      "Leaves", "Blossoms", "Fruit", "Mature product value", "New seed",
     ]);
-    expect(screen.getByRole("list", { name: "Seed to Foundation story" })).toBeVisible();
-    expect(screen.getByRole("button", { name: /Foundation stabilized/ })).toBeVisible();
+    expect(screen.getByRole("list", { name: "Seed to living product story" })).toBeVisible();
+    expect(screen.getByRole("button", { name: /New seed/ })).toBeVisible();
   });
 
   it("keeps the story progressive, scoped, and reduced-motion aware", () => {
@@ -28,7 +28,7 @@ describe("Living Product Experience", () => {
 
     expect(story).toContain("ScrollTrigger.create");
     expect(story).toContain("IntersectionObserver");
-    expect(story).toContain("prefers-reduced-motion: no-preference");
+    expect(story).toContain('reduce: "(prefers-reduced-motion: reduce)"');
     expect(provider).toContain('import("lenis")');
     expect(provider).toContain("syncTouch: false");
     expect(provider).toContain("motionPreference.matches");

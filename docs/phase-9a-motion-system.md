@@ -1,116 +1,104 @@
-# Phase 9A Motion System
+# Phase 9A.2 Motion System
 
-## Ownership
+## Ownership and runtime
 
-`components/marketing/ScrollProductNarrative.tsx` is the motion owner. It is a narrow Client Component rendered only on the public landing route. `SignatureGrowthVisual` owns deterministic SVG structure but no independent animation lifecycle.
+`components/marketing/ScrollProductNarrative.tsx` owns motion. It is a public-route Client Component with a local `useGSAP` scope. `SignatureGrowthVisual` renders deterministic SVG and DOM structure but owns no independent animation lifecycle.
 
-All GSAP imports pass through `lib/motion/gsap-client.ts`, which registers GSAP, ScrollTrigger, SplitText, and `useGSAP` behind the established client boundary.
+GSAP, ScrollTrigger, and `useGSAP` are imported from `lib/motion/gsap-client.ts`. No additional animation runtime was added.
 
 ## Master timeline
 
-One paused GSAP timeline describes the full organism. ScrollTrigger maps document progress onto that timeline with `scrub: 0.68`.
+One paused GSAP timeline spans normalized positions `0` through `9`.
 
-| Timeline region | Motion |
+| Timeline boundary | Motion |
 | --- | --- |
-| 0 to 1 | Reveal the attraction field; move useful fragments toward intent and leave noise peripheral. |
-| 1 to 2 | Reveal the seed and compress gathered fragments. |
-| 2 to 3 | Draw the crack and radicle; rotate and translate the two shell halves. |
-| 3 to 4 | Draw the primary root with path-length dash offset. |
-| 4 to 5 | Draw seven evidence branches from their existing parent root with a restrained stagger. |
-| 5 to 6 | Draw five cross-branch connections only after their endpoints exist. |
-| 6 to 7 | Reveal the seven labeled Foundation nodes and their mixed states. |
-| 7 to 8 | Draw the small shoot, strengthen the primary root, quiet the original fragments, and reveal the review handoff. |
+| 0 to 1 | Crack and radicle draw; shell halves open; the primary root and moving root tip draw downward. |
+| 1 to 2 | Seven root branches draw, five connections follow, and Foundation nodes scale into their fixed endpoints. |
+| 2 to 3 | The architecture trunk draws upward. |
+| 3 to 4 | Six canopy branches draw from the trunk. |
+| 4 to 5 | Six leaves grow from zero scale at their branch anchors. |
+| 5 to 6 | Four blossoms appear with a restrained stagger. |
+| 6 to 7 | Three fruit forms appear and the blossoms quiet slightly. |
+| 7 to 8 | Mature-value labels appear and the primary structure gains a bounded emphasis. |
+| 8 to 9 | The renewal path draws and a new seed follows it toward a new soil position. |
 
-Path drawing uses `pathLength="1"`, `stroke-dasharray: 1`, and animated `stroke-dashoffset`. This keeps sequencing independent of the raw path length and allows the same timeline to rewind naturally.
+Path growth uses `pathLength="1"`, `stroke-dasharray: 1`, and `stroke-dashoffset` from `1` to `0`. Draw phases use linear easing so scroll position and visible line length remain legible. Scale, shell, and label transitions use restrained power easing without bounce or spring.
 
-The shell uses bounded rotation and translation around explicit transform origins. There is no bounce, spring, random drift, idle loop, or animation that blocks interaction.
+Timeline progress is the source of truth. The active stage is `round(progress * 9)`, so visual geometry, caption, progressbar, and chapter state stay synchronized.
 
-## ScrollTrigger model
+## Desktop and tablet ScrollTrigger
 
-At 768 pixels and wider:
+At 768 pixels and wider, one ScrollTrigger owns the master timeline:
 
-- one progress trigger owns the master timeline
-- the chapter list is the progress range
-- progress begins when the list top reaches the viewport center
-- progress completes when the list bottom reaches the viewport center
-- one trigger per chapter updates React state only on `onEnter` and `onEnterBack`
+- trigger: the first chapter
+- start: first chapter center at viewport center
+- end trigger: the last chapter
+- end: last chapter center at viewport center
+- scrub: `0.24`
+- `invalidateOnRefresh: true`
 
-The timeline therefore remains continuous while stage labels update only at meaningful boundaries. React does not receive a state update on every scroll frame.
+The scene uses CSS sticky positioning rather than a second pin trigger. This preserves native document height, avoids pin-spacer geometry, and keeps exactly one Phase 9A ScrollTrigger. A refresh runs after fonts settle, and ScrollTrigger handles later resize refreshes.
 
-At 1024 pixels and wider, a second ScrollTrigger pins the visual:
+Forward scroll advances the timeline. Reverse scroll rewinds the same timeline, including renewal, value labels, fruit, blossoms, leaves, branches, trunk, Foundation branches, and the first root. No alternate reverse animation or reset state exists.
 
-- start: the story layout reaches 112 pixels from the viewport top
-- end: calculated from the final chapter and available viewport height
-- `pinSpacing: false`: the right-hand chapter column preserves the section's real document height
-- `invalidateOnRefresh: true`: resize and refresh recalculate geometry
-
-Forward scrolling plays the same timeline. Reverse scrolling rewinds it, retracting connections, branches, root, crack, seed, and fragment gathering in the inverse order. Chapter state follows `onEnterBack`.
-
-## Tablet and mobile
-
-The progress timeline remains active from 768 through 1023 pixels, but the explicit desktop pin is not created. Chapter minimum height is reduced to shorten travel.
+## Mobile native flow
 
 Below 768 pixels:
 
-- no GSAP story timeline is created
-- no ScrollTrigger pin is created
-- the visual uses normal document positioning
-- chapters form a vertical, snap-free list
-- native scrolling remains authoritative
-- `IntersectionObserver` changes the current stage at coarse semantic boundaries
+- no ScrollTrigger is created
+- Lenis does not take over touch scrolling
+- the public section uses native vertical chapters
+- `IntersectionObserver` identifies the dominant semantic chapter
+- a short GSAP tween moves the paused master timeline to that chapter's target
+- interrupted movement is killed and replaced by the new target
 
-The mobile experience keeps all stage meaning in text and shows the complete organism without requiring a long pinned journey.
+This preserves the same geometry and lifecycle without continuous scroll-frame work, pin spacers, snap behavior, or a second scrolling owner.
 
 ## Reduced motion
 
-Under `prefers-reduced-motion: reduce`:
+When `prefers-reduced-motion: reduce` matches:
 
+- no master timeline or ScrollTrigger is created
+- every lifecycle group is visible
+- every growth path has zero dash offset
+- shell halves render in their open state
+- leaves, blossoms, fruit, value, renewal path, and the new seed render complete
+- active state is stage 10
+- sticky positioning is disabled and copy uses compact natural flow
 - Lenis does not start
-- the GSAP progress and pin branches do not run
-- all stage groups are made visible
-- every root path receives a zero dash offset
-- the final Foundation stage is selected
-- the visual returns to relative positioning
-- chapters use compact natural flow
 
-There is no spatial scrub, pin, seed opening, root drawing, or repeated announcement. The final static composition and ordered copy carry the same meaning.
+The result is one complete static composition, not a blank first frame and not a simplified Foundation-only fallback.
 
 ## Cleanup
 
-The `useGSAP` scope is the story section. Cleanup explicitly:
+`gsap.matchMedia()` selects desktop, tablet, mobile, and reduced branches. On cleanup:
 
-- kills every chapter ScrollTrigger
-- kills the progress ScrollTrigger
-- kills the desktop pin ScrollTrigger
-- reverts the master timeline
-- reverts `gsap.matchMedia()`
+- the single ScrollTrigger is killed
+- the mobile `IntersectionObserver` disconnects
+- any in-flight mobile stage tween is killed
+- the master timeline reverts
+- the match-media context reverts
+- delayed font-refresh work is canceled
 
-The public `MarketingMotionProvider` separately removes the GSAP ticker callback and destroys Lenis on unmount. Phase 9A adds no global scroll listener and no continuous request-animation-frame owner.
+The separate public `MarketingMotionProvider` removes its GSAP ticker callback and destroys Lenis on unmount.
 
-## Lenis synchronization
+## Lenis boundary
 
-Lenis remains public-only. `MarketingMotionProvider` dynamically imports it, forwards Lenis scroll events to `ScrollTrigger.update`, and advances it from the existing GSAP ticker. Touch synchronization remains disabled. Form controls, dialogs, and native-scroll boundaries retain native behavior. Authentication and protected workspace layouts do not import the provider.
+Lenis remains public-only. It forwards public wheel-scroll updates to ScrollTrigger and is absent from protected application layouts. Reduced motion prevents initialization. Touch synchronization stays disabled, while forms, dialogs, editable controls, browser history, keyboard navigation, and nested native-scroll regions keep their established behavior.
 
 ## Accessibility and interruption
 
-- Stage controls are normal buttons in an ordered list.
-- Focus and direct selection update stage semantics without waiting for animation.
-- The current stage uses `aria-current="step"` and `aria-pressed`.
-- Progress uses a named progressbar with integer stage values.
-- The SVG is hidden from assistive technology; equivalent text is present in the document.
-- There is no live region that announces every scrub update.
-- A skip link moves directly past the story.
-- Motion is scroll-driven and therefore reversible and interruptible.
+Scroll motion is reversible and interruptible. Stage controls are real buttons, a skip link bypasses the long narrative, progress has integer ARIA values, and no live region announces frame-level changes. The decorative SVG is hidden from assistive technology; complete meaning is available in ordered text, state labels, a screen-reader summary, and a `noscript` fallback.
 
-## Performance rules
+## Performance boundaries
 
-- No new runtime dependency.
-- No frame sequence, video, canvas, or WebGL.
-- No layout measurement inside animation callbacks.
-- No React state update on each scrub frame.
-- No idle animation loop.
-- Fixed SVG geometry prevents path jitter during resize.
-- `vector-effect: non-scaling-stroke` keeps line weights sharp.
-- MatchMedia prevents creation of desktop work on mobile or under reduced motion.
+- one paused timeline
+- one desktop or tablet ScrollTrigger
+- zero mobile or reduced-motion ScrollTriggers
+- no per-frame React state update
+- no idle animation loop
+- no runtime layout measurement inside the animation callback
+- no raster frames, video, canvas, WebGL, Lottie, or Three.js
+- no protected-route motion or scrolling change
 
-Exact feature-level JavaScript and CSS gzip attribution is not exposed by the current Turbopack output. The reliable measured boundaries are unchanged dependency count, zero new production assets, and no protected-route Lenis import.
+The inline SVG is larger than the prior Foundation-only scene, but it adds no network asset request. Vector geometry and non-scaling strokes keep the composition sharp at supported responsive sizes.

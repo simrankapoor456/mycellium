@@ -111,14 +111,16 @@ Rejected for the current system:
 - No installed package was reported as deprecated. `npm outdated` reports newer major releases for `@types/node`, ESLint, and TypeScript; they are not interaction-system blockers and should be reviewed in a separate upgrade task.
 - The latest required `npm install` reported three high-severity advisories in the existing dependency tree. Phase 9A does not force-upgrade unrelated packages; review them in a dedicated dependency and security task.
 
-## Phase 9A signature implementation
+## Phase 9A.2 signature implementation
 
-The public signature story uses one paused GSAP master timeline for fragment convergence, structural seed opening, path-length root drawing, evidence branching, mycelium connection, and Foundation stabilization. One ScrollTrigger scrubs the timeline, chapter triggers update semantic state at forward and reverse boundaries, and a separate desktop trigger pins the visual from 1024 pixels. Mobile does not create the GSAP story timeline or pin. Reduced motion renders the full Foundation immediately.
+The public signature story uses one paused GSAP master timeline for structural seed opening, normalized path drawing, Foundation growth, trunk and canopy formation, leaves, blossoms, fruit, mature product value, and renewal. One ScrollTrigger scrubs the timeline from 768 pixels upward. The visual uses CSS sticky positioning instead of a second pin trigger, and stage state comes from the master timeline's actual progress.
+
+Below 768 pixels, the same paused timeline moves only between semantic targets chosen by `IntersectionObserver`; ScrollTrigger is not created and native touch scrolling remains authoritative. Reduced motion creates neither the timeline nor ScrollTrigger and renders the complete mature organism, value labels, renewal path, and new seed as a static composition.
 
 The story is dynamically composed from the public route and remains semantically complete before enhancement. The Living Foundation Map retains its one-time scoped path reveal because connection sequence carries authenticated product meaning. Both owners use local refs, `useGSAP`, `gsap.matchMedia()`, and complete cleanup.
 
 Lenis starts only inside `MarketingMotionProvider`, forwards scroll events to `ScrollTrigger.update`, advances from the GSAP ticker, and removes its ticker callback before destruction. Inputs, textareas, selects, dialogs, and native-scroll regions remain outside its control. It remains a separate public-only runtime and is not imported by protected layouts.
 
-Focused coverage protects deterministic root geometry, the nine-stage Foundation stop, forward and reverse semantics, reduced motion, desktop pinning, mobile flow, cleanup, protected-route isolation, anchors, calls to action, keyboard access, console and hydration errors, and page overflow. Physical-device and representative assistive-software checks remain release work.
+Focused coverage protects deterministic root and canopy geometry, the ten-stage lifecycle, computed path drawing, forward and reverse semantics, reduced motion, the single-trigger contract, mobile native flow, cleanup, protected-route isolation, anchors, calls to action, keyboard access, console and hydration errors, and page overflow. Physical-device and representative assistive-software checks remain release work.
 
-Phase 9A adds no runtime dependency, raster sequence, video, canvas, or WebGL. The inline SVG is larger than the former reveal graphic, but it produces no separate asset request and runs no idle loop. The current Turbopack output does not expose stable feature-level gzip attribution, so no exact transfer delta is claimed.
+Phase 9A.2 adds no runtime dependency, production reference image, raster sequence, video, canvas, WebGL, Three.js, or Lottie. The inline SVG is larger than the former Foundation-only graphic, but it produces no separate asset request and runs no idle loop.
